@@ -3,6 +3,7 @@
 #include <cmath>
 #include <time.h>
 #include <vector>
+#include <chrono>
 #include <ctime>
 
 using namespace std;
@@ -42,28 +43,18 @@ int main() {
     double minValue = 0.0; // Минимальное значение
     double maxValue = 100.0; // Максимальное значение
     
-
     // Генерация случайных данных
     vector<double> data = generateRandomData(dataSize, minValue, maxValue);
 
-    // Вычисление скользящего среднего и замер времени на решение
-    clock_t start, end;
-    start = clock();
+    // Вычисление скользящего среднего
+    auto start_time = chrono::steady_clock::now();
+
 
     vector<double> movingAverages = calculateSimpleMovingAverage(data, windowSize);
 
-    // Вычисляем время выполнения в тактах
-    end = clock();
-    clock_t clocks = end - start;
-
-    // Получаем количество тактов в секунду
-    double clocksPerSec = static_cast<double>(CLOCKS_PER_SEC);
-
-    // Вычисляем производительность в тактах в секунду
-    double perf = clocks / clocksPerSec;
-
+    auto end_time = chrono::steady_clock::now();
+    auto elapsed_ns = chrono::duration_cast<chrono::nanoseconds>(end_time - start_time);
+    cout << elapsed_ns.count() << " ns\n";
     
-    cout << "perfomance" << perf << " ns\n";
-   
     return 0;
 }
