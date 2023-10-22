@@ -47,13 +47,13 @@ int main() {
     vector<double> data = generateRandomData(dataSize, minValue, maxValue);
 
     // Вычисление скользящего среднего
-    auto start_time = chrono::steady_clock::now();
+    auto start_time = steady_clock::now();
 
 
     vector<double> movingAverages = calculateSimpleMovingAverage(data, windowSize);
 
-    auto end_time = chrono::steady_clock::now();
-    auto elapsed_ns = chrono::duration_cast<chrono::nanoseconds>(end_time - start_time);
+    auto end_time = steady_clock::now();
+    auto elapsed_ns = duration_cast<nanoseconds>(end_time - start_time);
     cout << elapsed_ns.count() << " ns\n";
     
     return 0;
